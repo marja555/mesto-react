@@ -1,40 +1,22 @@
-import Popup from './Popup.js';
+import React from 'react';
 
-export default class PopupWithForm extends Popup {
-  constructor ({popupSelector, handleFormSubmit}) {
-    super(popupSelector);
-    this._handleFormSubmit = handleFormSubmit;
-    this._form = this._popup.querySelector('.popup__form');
-    this._formInputs = this._popup.querySelectorAll('.popup__input');
-    this._submitButton = this._popup.querySelector('.popup__submit-button');
-  }
 
-  _getInputValues() {
-    this._formValues = {};
+function PopupWithForm(props) {
 
-    this._formInputs.forEach((input) => {
-      this._formValues[input.name] = input.value;
-    
-    })
-    return this._formValues;
-  }
-
-  _handleSubmit = (evt) => {
-    evt.preventDefault();
-    this._handleFormSubmit(this._getInputValues());  
+  return (
+    <div className={props.isOpen 
+      ? `popup popup_type_${props.name} popup_type_opened` 
+      : `popup popup_type_${props.name}`}>
+    <div className="popup__overlay"></div>
+    <div className="popup__container">
+      <button type="button" onClick={props.onClose} className="popup__close"></button>
+      <h3 className="popup__title">{props.title}</h3>
+      <form name={`${props.name}-form`} className="popup__form popup__form_type_profile" noValidate>
+        {props.children}
+      </form>
+    </div>
+  </div>
+  )
 }
 
-  close() {
-    super.close();
-    this._form.reset();
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-    this._form.addEventListener('submit', this._handleSubmit);
-  }
-
-  renderLoading(buttonText) {
-    this._submitButton.textContent = buttonText;
-  }
-}
+export default PopupWithForm;

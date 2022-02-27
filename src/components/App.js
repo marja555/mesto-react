@@ -1,20 +1,15 @@
 import React, {useState} from 'react';
 import '../pages/index.css';
-// import logoPath from '../images/logo.svg';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import Popups from './Popups';
+import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-
-  const [isEditProfilePopupClose, setIsEditProfilePopupClose] = useState(false);
-  const [isAddPlacePopupClose, setIsAddPlacePopupClose] = useState(false);
-  const [isEditAvatarPopupClose, setIsEditAvatarPopupClose] = useState(false);
   
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -28,17 +23,12 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
-  function closeProfilePopup() {
-    setIsEditProfilePopupClose(!isEditProfilePopupClose);
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
   }
 
-  function closePlacePopup() {
-    setIsAddPlacePopupClose(!isAddPlacePopupClose);
-  }
-
-  function closeAvatarEditPopup() {
-    setIsEditAvatarPopupClose(!isEditAvatarPopupClose);
-  }
 
   return (
     <body id="root" className="page">
@@ -51,11 +41,11 @@ function App() {
     />
     <Footer />
   </div>
-    <Popups 
+    <PopupWithForm 
       title='Редактировать профиль' 
       name='profile'
       isOpen={isEditProfilePopupOpen}
-      onClose={closeProfilePopup}
+      onClose={closeAllPopups}
     >
     <input id="name-input" type="text" name="name" value="" placeholder="Имя" 
       size="40" className="popup__input popup__input_type_name" 
@@ -67,12 +57,12 @@ function App() {
       minLength="2" maxLength="200" required />
     <span id="job-input-error" className="popup__input-error"></span>
     <button type="submit" className="popup__submit-button">Сохранить</button>
-    </Popups>
-    <Popups
+    </PopupWithForm>
+    <PopupWithForm
       title='Новое место'
       name='place'
       isOpen={isAddPlacePopupOpen}
-      onClose={closePlacePopup}
+      onClose={closeAllPopups}
     >
     <input id="place-input" type="text" name="place" value="" 
       placeholder="Название" size="40" 
@@ -84,18 +74,18 @@ function App() {
       className="popup__input popup__input_type_photo-link" required />
     <span id="link-input-error" className="popup__input-error"></span>
     <button type="submit" className="popup__submit-button">Создать</button>
-    </Popups>
-    <Popups
+    </PopupWithForm>
+    <PopupWithForm
       title='Вы уверены?'
       name='submit'
     >
       <button type="submit" className="popup__submit-button">Да</button>
-    </Popups>
-    <Popups
+    </PopupWithForm>
+    <PopupWithForm
       title='Обновить аватар'
       name='avatar-edit'
       isOpen={isEditAvatarPopupOpen}
-      onClose={closeAvatarEditPopup}
+      onClose={closeAllPopups}
     >
       console.log(handleEditAvatarClick)
     <input id="avatar-input" type="url" name="avatar" value=""
@@ -103,7 +93,7 @@ function App() {
       className="popup__input popup__input_type_avatar" required />
     <span id="avatar-input-error" className="popup__input-error"></span>
     <button type="submit" className="popup__submit-button">Сохранить</button>
-    </Popups>
+    </PopupWithForm>
 
     <ImagePopup />
 
