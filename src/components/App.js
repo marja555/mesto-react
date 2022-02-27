@@ -11,21 +11,33 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  const [isEditProfilePopupClose, setIsEditProfilePopupClose] = useState(false);
+  const [isAddPlacePopupClose, setIsAddPlacePopupClose] = useState(false);
+  const [isEditAvatarPopupClose, setIsEditAvatarPopupClose] = useState(false);
   
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(true);
   }
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(true);
   }
 
-  function closeAllPopups() {
+  function closeProfilePopup() {
+    setIsEditProfilePopupClose(!isEditProfilePopupClose);
+  }
 
+  function closePlacePopup() {
+    setIsAddPlacePopupClose(!isAddPlacePopupClose);
+  }
+
+  function closeAvatarEditPopup() {
+    setIsEditAvatarPopupClose(!isEditAvatarPopupClose);
   }
 
   return (
@@ -43,6 +55,7 @@ function App() {
       title='Редактировать профиль' 
       name='profile'
       isOpen={isEditProfilePopupOpen}
+      onClose={closeProfilePopup}
     >
     <input id="name-input" type="text" name="name" value="" placeholder="Имя" 
       size="40" className="popup__input popup__input_type_name" 
@@ -59,6 +72,7 @@ function App() {
       title='Новое место'
       name='place'
       isOpen={isAddPlacePopupOpen}
+      onClose={closePlacePopup}
     >
     <input id="place-input" type="text" name="place" value="" 
       placeholder="Название" size="40" 
@@ -81,6 +95,7 @@ function App() {
       title='Обновить аватар'
       name='avatar-edit'
       isOpen={isEditAvatarPopupOpen}
+      onClose={closeAvatarEditPopup}
     >
       console.log(handleEditAvatarClick)
     <input id="avatar-input" type="url" name="avatar" value=""
