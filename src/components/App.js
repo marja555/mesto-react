@@ -1,4 +1,4 @@
-// import logo from './logo.svg';
+import React, {useState} from 'react';
 import '../pages/index.css';
 // import logoPath from '../images/logo.svg';
 import Header from './Header';
@@ -7,40 +7,42 @@ import Footer from './Footer';
 import Popups from './Popups';
 import ImagePopup from './ImagePopup';
 
-// const popupData = [
-//   {
-//   title: 'Редактировать профиль',
-//   name: 'profile',
-//   buttonText: 'Сохранить'
-//   },
-//   {
-//     title: 'Новое место',
-//     name: 'place',
-//     buttonText: 'Создать'
-//   },
-//   {
-//     title: 'Вы уверены?',
-//     name: 'submit',
-//     buttonText: 'Да' 
-//   },
-//   {
-//     title: 'Обновить аватар',
-//     name: 'avatar-edit',
-//     buttonText: 'Сохранить'
-//   }
-// ]
-
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function closeAllPopups() {
+
+  }
+
   return (
     <body id="root" className="page">
     <div className="page__container">
     <Header />
-    <Main />
+    <Main
+      onEditProfile={handleEditProfileClick}
+      onAddPlace={handleAddPlaceClick} 
+      onEditAvatar={handleEditAvatarClick}
+    />
     <Footer />
   </div>
     <Popups 
       title='Редактировать профиль' 
       name='profile'
+      isOpen={isEditProfilePopupOpen}
     >
     <input id="name-input" type="text" name="name" value="" placeholder="Имя" 
       size="40" className="popup__input popup__input_type_name" 
@@ -56,6 +58,7 @@ function App() {
     <Popups
       title='Новое место'
       name='place'
+      isOpen={isAddPlacePopupOpen}
     >
     <input id="place-input" type="text" name="place" value="" 
       placeholder="Название" size="40" 
@@ -77,7 +80,9 @@ function App() {
     <Popups
       title='Обновить аватар'
       name='avatar-edit'
+      isOpen={isEditAvatarPopupOpen}
     >
+      console.log(handleEditAvatarClick)
     <input id="avatar-input" type="url" name="avatar" value=""
       placeholder="Ссылка для аватара" size="40"
       className="popup__input popup__input_type_avatar" required />

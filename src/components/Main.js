@@ -1,34 +1,19 @@
 import React from 'react';
 
-function Main() {
-
-  function handleEditProfileClick() {
-    const popupProfile = document.querySelector('.popup_type_profile');
-    popupProfile.classList.add('popup_type_opened');
-  }
-
-  function handleAddPlaceClick() {
-    const popupPlace = document.querySelector('.popup_type_place');
-    popupPlace.classList.add('popup_type_opened');
-  }
-
-  function handleEditAvatarClick() {
-    const popupEditAvatar = document.querySelector('.popup_type_avatar-edit');
-    popupEditAvatar.classList.add('popup_type_opened');
-  }
+function Main(props) {
 
   return (
     <main>
       <section className="profile">
         <div className="profile__info">
-          <div onClick={handleEditAvatarClick} className="profile__image"></div>
+          <div onClick={props.onEditAvatar} className="profile__image"></div>
           <div className="profile__info-container">
             <h1 className="profile__name"></h1>
-            <button type="button" onClick={handleEditProfileClick} className="profile__edit-button"></button>
+            <button type="button" onClick={props.onEditProfile} className="profile__edit-button"></button>
             <p className="profile__profession"></p>
           </div>
         </div>  
-        <button type="button" onClick={handleAddPlaceClick} className="profile__add-button"></button>
+        <button type="button" onClick={props.onAddPlace} className="profile__add-button"></button>
       </section>
       <section className="cards">
         <template id="cardTemplate">
