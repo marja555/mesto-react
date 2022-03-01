@@ -22,7 +22,6 @@ function Main({onEditProfile, onEditAvatar, onAddPlace, onCardClick}) {
     api.getCards()
     .then((cardsList) => {
       setCards(cardsList);
-      console.log(cards)
     })
     .catch(err => `Не удалось получить данные карточек, ошибка: ${err}`)
   }, [])
