@@ -34,7 +34,6 @@ function App() {
 
   function handleCardClick(cardData) {
     setSelectedCard(cardData);
-    console.log(cardData)
   }
 
   return (
