@@ -42,6 +42,10 @@ class Api {
     }).then(this._handleResponse)
   }
 
+  getInitialData() {
+    return Promise.all([this.getUser(), this.getCards()]);
+  }
+
   editUserInfo({name, job}) {
     return fetch(`${this._adress}/users/me`, {
       method: 'PATCH',
@@ -79,8 +83,18 @@ class Api {
     .then(this._handleResponse)
   }
 
-  updateLikeCard({ _isLiked, _id }) {
-    return _isLiked ? this._deleteLike(_id) : this._addLike(_id);
+  // changeLikeCardStatus(_id, isLiked) {
+  //   return isLiked ? this._deleteLike(_id) : this._addLike(_id);
+  // }
+
+  changeLikeCardStatus(id, isLiked) {
+    return fetch(`${this._address}/cards/${id}/likes`, {
+      method: isLiked ? 'PUT' : 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+      .then(this._handleResponse)
   }
 
   _addLike(_id) {
