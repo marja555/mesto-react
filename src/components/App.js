@@ -77,7 +77,16 @@ function App() {
           return c._id !== card._id;
         }))
       })
-  } 
+      .catch(err => `Не удалось удалить карточку, ошибка: ${err}`)
+  }
+
+  function handleCreateCard({place, image}) {
+    api.addCard({place, image})
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch(err => `Не удалось создать карточку, ошибка: ${err}`)
+  }
 
   React.useEffect(() => {
     api.getInitialData()
@@ -111,7 +120,8 @@ function App() {
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen} 
-          isClose={closeAllPopups} 
+          isClose={closeAllPopups}
+          onCreateCard={handleCreateCard}
         />
         <PopupWithForm title="Вы уверены?" name="submit">
           <button type="submit" className="popup__submit-button">

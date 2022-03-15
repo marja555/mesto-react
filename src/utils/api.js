@@ -93,28 +93,6 @@ class Api {
     })
       .then(this._handleResponse)
   }
-
-  // _addLike(_id) {
-  //   return fetch(`${this._adress}/cards/${_id}/likes`, {
-  //     method: 'PUT',
-  //     headers: {
-  //       authorization: this._token,
-  //       'Content-type': 'application/json'
-  //     }
-  //   })
-  //   .then(this._handleResponse)
-  // }
-
-  // _deleteLike(_id) {
-  //   return fetch(`${this._adress}/cards/${_id}/likes`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       authorization: this._token,
-  //       'Content-type': 'application/json'
-  //     }
-  //   })
-  //   .then(this._handleResponse)
-  // }
 }
 
 const api = new Api({
