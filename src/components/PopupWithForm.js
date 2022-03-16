@@ -6,7 +6,7 @@ function PopupWithForm(props) {
     <div className={props.isOpen 
       ? `popup popup_type_${props.name} popup_type_opened` 
       : `popup popup_type_${props.name}`}>
-    <div className="popup__overlay"></div>
+    <div className="popup__overlay" onClick={props.onClose}></div>
     <div className="popup__container">
       <button type="button" onClick={props.onClose} className="popup__close"></button>
       <h3 className="popup__title">{props.title}</h3>

@@ -30,7 +30,7 @@ function EditProfilePopup(props) {
     setName(currentUser.name);
     setDescription(currentUser.about);
     }
-  }, [currentUser]);
+  }, [currentUser, props.isOpen]);
 
   return (
     <PopupWithForm
@@ -44,6 +44,7 @@ function EditProfilePopup(props) {
             id="name-input"
             type="text"
             name={name}
+            value={name || ''}
             placeholder="Имя"
             size="40"
             className="popup__input popup__input_type_name"
@@ -57,6 +58,7 @@ function EditProfilePopup(props) {
             id="job-input"
             type="text"
             name={description}
+            value={description || ''}
             placeholder="Профессиональная деятельность"
             size="40"
             className="popup__input popup__input_type_profession"

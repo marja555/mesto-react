@@ -1,19 +1,34 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-  const placeInputRef = useRef();
-  const placeImageInputRef = useRef();
+const [place, setPlace] = useState('');
+const [image, setImage] = useState('');
 
-  function handleAddPlaceSubmit(evt) {
-    evt.preventDefault();
+function handlePlaceChange(evt) {
+  setPlace(evt.target.value);
+}
 
-    props.onCreateCard({
-      place: placeInputRef.current.value, 
-      image: placeImageInputRef.current.value
-    })
-    props.isClose();
-  }
+function handleImageChange(evt) {
+  setImage(evt.target.value);
+}
+
+function handleAddPlaceSubmit(evt) {
+  evt.preventDefault();
+
+  props.onCreateCard({
+    place,
+    image
+  });
+  // setPlace('');
+  // setImage('');
+  props.isClose();
+}
+
+React.useEffect(() => {
+  setPlace('');
+  setImage('');
+}, [props.isOpen]);
 
   return (
     <PopupWithForm
@@ -26,24 +41,24 @@ function AddPlacePopup(props) {
           <input
             id="place-input"
             type="text"
-            name="place"
+            name={place}
             placeholder="Название"
             size="40"
             className="popup__input popup__input_type_place"
             minLength="2"
             maxLength="30"
-            ref={placeInputRef}
+            onChange={handlePlaceChange}
             required
           />
           <span id="place-input-error" className="popup__input-error"></span>
           <input
             id="link-input"
             type="url"
-            name="image"
+            name={image}
             placeholder="Ссылка на картинку"
             size="40"
             className="popup__input popup__input_type_photo-link"
-            ref={placeImageInputRef}
+            onChange={handleImageChange}
             required
           />
           <span id="link-input-error" className="popup__input-error"></span>
