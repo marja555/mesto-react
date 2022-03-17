@@ -2,21 +2,23 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import ConfirmPopup from "./ConfirmPopup";
 
 function App() {
   const [cards, setCards] = useState([]);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState(null);
+  const [cardToDelete, setCardToDelete] = useState()
   const [currentUser, setCurrentUser] = useState(null);
 
   function handleEditProfileClick() {
@@ -31,10 +33,16 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  function handleConfirmDeleteClick(cardData) {
+    setIsConfirmDeletePopupOpen(true);
+    setCardToDelete(cardData);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsConfirmDeletePopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -88,6 +96,7 @@ function App() {
       .catch(err => `Не удалось создать карточку, ошибка: ${err}`)
   }
 
+
   React.useEffect(() => {
     api.getInitialData()
       .then(([userData, cardsList]) => {
@@ -107,8 +116,8 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
+            onConfirmDeleteClick={handleConfirmDeleteClick}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
             cards={cards}
           />
           <Footer />
@@ -123,11 +132,11 @@ function App() {
           isClose={closeAllPopups}
           onCreateCard={handleCreateCard}
         />
-        <PopupWithForm title="Вы уверены?" name="submit">
-          <button type="submit" className="popup__submit-button">
-            Да
-          </button>
-        </PopupWithForm>
+        <ConfirmPopup
+          isOpen={isConfirmDeletePopupOpen}
+          isClose={closeAllPopups}
+          onCardDelete={() => handleCardDelete(cardToDelete)}
+        />
         <EditAvatarPopup 
           isOpen={isEditAvatarPopupOpen} 
           isClose={closeAllPopups} 

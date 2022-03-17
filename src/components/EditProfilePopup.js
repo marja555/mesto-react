@@ -43,7 +43,7 @@ function EditProfilePopup(props) {
           <input
             id="name-input"
             type="text"
-            name={name}
+            name="name"
             value={name || ''}
             placeholder="Имя"
             size="40"
@@ -57,7 +57,7 @@ function EditProfilePopup(props) {
           <input
             id="job-input"
             type="text"
-            name={description}
+            name="job"
             value={description || ''}
             placeholder="Профессиональная деятельность"
             size="40"
