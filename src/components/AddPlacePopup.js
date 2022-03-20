@@ -5,7 +5,7 @@ function AddPlacePopup(props) {
 const [place, setPlace] = useState('');
 const [image, setImage] = useState('');
 
-const [placeError, setPlaceError] = useState('');
+const [placeError, setPlaceError] = useState('');//для валидации формы
 const [imageError, setImageError] = useState('');
 
 function handlePlaceChange(evt) {
